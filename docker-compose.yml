@@ -1,0 +1,18 @@
+version: '3'
+
+networks:
+  nginx_net:
+    external:
+      name: nginx_net
+
+services:
+  web:
+    container_name: "timetable_web"
+    image: fumaz/python3.9-sanic
+    restart: unless-stopped
+    working_dir: /usr/src/app
+    volumes:
+      - ./src:/usr/src/app
+    build: .
+    command:
+      - python3 run.py

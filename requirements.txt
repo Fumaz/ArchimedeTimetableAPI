@@ -1,0 +1,5 @@
+sanic
+httpx
+cachetools
+bs4
+lxml
