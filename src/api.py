@@ -73,7 +73,7 @@ def parse_lesson_cell_teacher(cell):
     classs = cell_data[0].text.strip()
     room = cell_data[-1].text.strip()
 
-    if classs == 'Ricevimento Parenti' or classs == 'Progetti':
+    if len(cell_data) < 3:
         return {
             'subject': classs,
             'teachers': [],
