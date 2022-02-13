@@ -3,3 +3,4 @@ httpx
 cachetools
 bs4
 lxml
+sanic-cors

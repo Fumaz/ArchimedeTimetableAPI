@@ -14,5 +14,6 @@ services:
     volumes:
       - ./src:/usr/src/app
     build: .
-    command:
-      - python3 run.py
+    command: python3 run.py
+    networks:
+      - nginx_net

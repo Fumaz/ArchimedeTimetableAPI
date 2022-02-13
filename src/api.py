@@ -47,15 +47,15 @@ def parse_days_heading(row):
 
 
 def parse_lesson_cell_classes(cell):
-    cell_data = iter(cell.findAll('p'))
-    subject = next(cell_data).text.strip()
+    cell_data = [c for c in cell.findAll('p') if c.text.strip() != '']
 
     # this is an empty cell
-    if len(subject) == 0:
+    if len(cell_data) == 0:
         return None
 
-    teachers = next(cell_data).text.strip().split(' - ')
-    room = next(cell_data).text.strip()
+    subject = cell_data[0].text.strip()
+    teachers = cell_data[1].text.strip().split(' - ')
+    room = cell_data[2].text.strip()
 
     return {
         'subject': subject,
@@ -67,17 +67,17 @@ def parse_lesson_cell_classes(cell):
 def parse_lesson_cell_teacher(cell):
     cell_data = [c for c in cell.findAll('p') if c.text.strip() != '']
 
-    if (len(cell_data) == 0):
+    if len(cell_data) == 0:
         return None
 
     classs = cell_data[0].text.strip()
     room = cell_data[-1].text.strip()
 
-    if classs == 'Ricevimento Parenti':
+    if classs == 'Ricevimento Parenti' or classs == 'Progetti':
         return {
-            'subject': 'Ricevimento Parenti',
+            'subject': classs,
             'teachers': [],
-            'room': room
+            'room': room if room != classs else None
         }
 
     subject = cell_data[1].text.strip()
